@@ -3,7 +3,7 @@
 __author__ = 'DozingWolf'
 
 from raftdatalog import RaftDataLog
-
+from parameterloader import ParaLoder
 
 class RaftMachine(Base):
 
@@ -13,6 +13,8 @@ class RaftMachine(Base):
         ***
         加载配置文件
         ***
+        __paraIteam = ParaLoder('../parameter/RMP.json', 'RaftMachine_Node_Local').loadParameter()
+        
         # demo variable
         __raftIP = '127.0.0.1'
         __raftHostName = 'Test.Machine.Node_01'
