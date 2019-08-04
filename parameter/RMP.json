@@ -1,26 +1,31 @@
 {
     "RaftMachine_Node_Local":{
         "RaftMachine_Node_Name":"RM.01",
+        "RaftMachine_Node_Domain":"CSY.com",
         "RaftMachine_Node_IP":"10.62.24.10",
         "RaftMachine_Node_Port":7600
     },
     "RaftMachine_Node_002":{
         "RaftMachine_Node_Name":"RM.02",
+        "RaftMachine_Node_Domain": "CSY.com",
         "RaftMachine_Node_IP":"10.62.24.11",
         "RaftMachine_Node_Port":7600
     },
     "RaftMachine_Node_003": {
         "RaftMachine_Node_Name":"RM.03",
+        "RaftMachine_Node_Domain": "CSY.com",
         "RaftMachine_Node_IP":"10.62.24.12",
         "RaftMachine_Node_Port":7600
     },
     "RaftMachine_Node_004": {
         "RaftMachine_Node_Name": "RM.04",
+        "RaftMachine_Node_Domain": "CSY.com",
         "RaftMachine_Node_IP": "10.62.24.13",
         "RaftMachine_Node_Port":7600
     },
     "RaftMachine_Node_005": {
         "RaftMachine_Node_Name": "RM.05",
+        "RaftMachine_Node_Domain": "CSY.com",
         "RaftMachine_Node_IP": "10.62.24.14",
         "RaftMachine_Node_Port":7600
     }

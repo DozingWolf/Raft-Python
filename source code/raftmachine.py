@@ -2,50 +2,51 @@
 
 __author__ = 'DozingWolf'
 
-from raftdatalog import RaftDataLog
+
 from parameterloader import ParaLoder
 
-class RaftMachine(Base):
+class RaftMachine(object):
 
     print('Raft-Python Machine')
 
-    def __init__():
-        ***
-        加载配置文件
-        ***
-        __paraIteam = ParaLoder('../parameter/RMP.json', 'RaftMachine_Node_Local').loadParameter()
+    def __init__(self):
+
+        # 加载配置文件
+        self.__raftNode = []
+        self.__raftIP = []
+        self.__raftHostName = []
+        self.__raftHostDomain = []
+        self.__raftPort = []
+        # 
+        self.__raftHeartBeat = 500  # unit is ms
+        self.__raftTerm = 0
+        self.__raftCharacter = 'Leader'
+
+        self.__nodeParaIteam , self.__nodeQty = ParaLoder('../parameter/RMP.json').loadParameter()
         
-        # demo variable
-        __raftIP = '127.0.0.1'
-        __raftHostName = 'Test.Machine.Node_01'
-        __raftHostDomain = 'CSY.com'
-        __raftNode = 1
-        __raftPort = 7690
-        __raftHeartBeat = 500  # unit is ms
-        __raftTerm = 0
-        __raftCharacter = 'Leader'
+        for self.__paraNodeNo, self.__paraIteam in enumerate(self.__nodeParaIteam):
+            print('node no = ',self.__paraNodeNo,'iteam = ',self.__paraIteam)
+
+    def RaftMachineInitial(self):
+        
+        # Raft算法初始化
+        
         pass
 
-    def RaftMachineInitial():
-        ***
-        Raft算法初始化
-        ***
+    def RaftMachineCharacterSwitch(self):
+        
+        # Raft角色切换
+        
         pass
 
-    def RaftMachineCharacterSwitch():
-        ***
-        Raft角色切换
-        ***
+    def getRaftMachineInfo(self):
+        
+        # 获取raft机器运行状态信息
+        
         pass
 
-    def getRaftMachineInfo():
-        ***
-        获取raft机器运行状态信息
-        ***
-        pass
-
-    def endRaftMachine():
-        ***
-        关闭raft机器
-        ***
+    def endRaftMachine(self):
+        
+        # 关闭raft机器
+        
         pass
