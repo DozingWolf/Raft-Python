@@ -6,15 +6,13 @@ import os
 import io
 import time
 
-# rst = para_hashcheck(file_path, para_path)
-
 class ParaLoder(object):
 
     #def __init__(self,p_path,*p_item):  # load multi variable
     def __init__(self,p_path):  # load all variable
         self.__parameterPath = p_path
         # self.__parameterIteam = p_item
-        self.resultDict = {}
+        # self.resultDict = {}
         self.__pararesult = {}
 
     def loadParameter(self):

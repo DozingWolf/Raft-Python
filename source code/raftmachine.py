@@ -11,21 +11,35 @@ class RaftMachine(object):
 
     def __init__(self):
 
-        # 加载配置文件
+        # 1. load parameter file
+        # all cluster parameter
+        self.__raftNodeDomain = ''
+        # localhost  parameter
         self.__raftNode = []
         self.__raftIP = []
         self.__raftHostName = []
-        self.__raftHostDomain = []
         self.__raftPort = []
-        # 
+        # dynamic parameter
         self.__raftHeartBeat = 500  # unit is ms
         self.__raftTerm = 0
         self.__raftCharacter = 'Leader'
-
+        # load parameters
         self.__nodeParaIteam , self.__nodeQty = ParaLoder('../parameter/RMP.json').loadParameter()
-        
-        for self.__paraNodeNo, self.__paraIteam in enumerate(self.__nodeParaIteam):
-            print('node no = ',self.__paraNodeNo,'iteam = ',self.__paraIteam)
+        # assignment parameters
+        self.__raftNodeDomain = self.__nodeParaIteam['RaftMachine_Node_Domain']
+
+        for self.__paraNodeNo, self.__paraIteam in enumerate(self.__nodeParaIteam['RaftMachine_List']):
+            # print('node no = ', self.__paraNodeNo,'iteam = ',self.__paraIteam)
+            self.__raftIP.append(
+                self.__nodeParaIteam['RaftMachine_List'][self.__paraIteam]['RaftMachine_Node_IP'])
+            self.__raftNode.append(
+                self.__paraNodeNo)
+            self.__raftHostName.append(
+                self.__nodeParaIteam['RaftMachine_List'][self.__paraIteam]['RaftMachine_Node_Name'])
+            self.__raftPort.append(
+                int(self.__nodeParaIteam['RaftMachine_List'][self.__paraIteam]['RaftMachine_Node_Port'])
+            )
+        # 2. 
 
     def RaftMachineInitial(self):
         
@@ -42,8 +56,17 @@ class RaftMachine(object):
     def getRaftMachineInfo(self):
         
         # 获取raft机器运行状态信息
-        
-        pass
+        print('=================================')
+        print('========Raft_Machine_Info========')
+        print('=================================')
+        print('Raft Machine host name :', self.__raftHostName[0])
+        print('Raft Machine host ip :',self.__raftIP[0])
+        print('Raft Machine host port :',self.__raftPort[0])
+        print('Raft Machine host in cluster\'s no :',self.__raftNode[0])
+        print('Raft Machine cluster domain name :',self.__raftNodeDomain)
+        print('now localhost character is :',self.__raftCharacter)
+        print('now RM term in localhost is :',self.__raftTerm)
+        print('=================================')
 
     def endRaftMachine(self):
         
