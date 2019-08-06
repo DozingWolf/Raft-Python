@@ -1,0 +1,10 @@
+{
+    "BSDDB_PARAMETER":{
+        "BSDDB_LOG_CONFIG_FILE":"./parameter/global_log.conf",
+        "BSDDB_LOGFILE":"./log/BSDDB.log"
+    },
+    "BSDDB_DB_LIST":{
+        "0":"PARAMETER.DB",
+        "1":"DATA.DB"
+    }
+}
