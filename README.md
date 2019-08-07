@@ -48,3 +48,10 @@
         3. 编写了getinfo方法，用于暴露raft状态信息。
         4. 添加BSDDB组件。
         5. 看了下代码，感觉还是需要添加logging模块，之后重新研究一下logging的使用。
+    20190807
+        1. 添加BSDDB模块。
+        2. 改造BSDDB模块内原有的logger
+        3. logger使用logconfig
+        4. 全局调用一份logconfig
+        5. logconfig写入标准程序配置文件内
+        6. 在raftmachine包内同步添加logger
