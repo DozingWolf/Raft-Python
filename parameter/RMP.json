@@ -1,5 +1,6 @@
 {
     "RaftMachine_Node_Domain":"CSY.com",
+    "RaftMachine_Log_Config":"../parameter/global_log.conf",
     "RaftMachine_List":{
         "RaftMachine_Node_Local":{
             "RaftMachine_Node_Name":"RM.01",

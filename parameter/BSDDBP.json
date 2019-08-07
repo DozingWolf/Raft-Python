@@ -1,7 +1,9 @@
 {
     "BSDDB_PARAMETER":{
-        "BSDDB_LOG_CONFIG_FILE":"./parameter/global_log.conf",
-        "BSDDB_LOGFILE":"./log/BSDDB.log"
+        "BSDDB_LOG_CONFIG_FILE":"../parameter/global_log.conf",
+        "BSDDB_LOG_HANDLE_NAME":"BSDDB",
+        "BSDDB_LOGFILE":"./log/BSDDB.log",
+        "BSDDB_STORAGE_PATH":"../datastorage"
     },
     "BSDDB_DB_LIST":{
         "0":"PARAMETER.DB",

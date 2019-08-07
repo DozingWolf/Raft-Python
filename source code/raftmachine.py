@@ -2,7 +2,8 @@
 
 __author__ = 'DozingWolf'
 
-
+import logging.config
+import logging
 from parameterloader import ParaLoder
 
 class RaftMachine(object):
@@ -39,7 +40,11 @@ class RaftMachine(object):
             self.__raftPort.append(
                 int(self.__nodeParaIteam['RaftMachine_List'][self.__paraIteam]['RaftMachine_Node_Port'])
             )
-        # 2. 
+        # 2. initial log handle
+        self.__rmLogConfigFile = self.__nodeParaIteam['RaftMachine_Log_Config']
+        logging.config.fileConfig(self.__rmLogConfigFile)
+        self.__rmLogHandleName = self.__raftHostName[0] + '_' + self.__raftIP[0]
+        self.__rmLogger = logging.getLogger(self.__rmLogHandleName)
 
     def RaftMachineInitial(self):
         
@@ -56,6 +61,7 @@ class RaftMachine(object):
     def getRaftMachineInfo(self):
         
         # 获取raft机器运行状态信息
+        self.__rmLogger.info('Test by DW')
         print('=================================')
         print('========Raft_Machine_Info========')
         print('=================================')
