@@ -55,3 +55,5 @@
         4. 全局调用一份logconfig
         5. logconfig写入标准程序配置文件内
         6. 在raftmachine包内同步添加logger
+    20190802
+        1. 尝试编写一组可以持续使用测试的虚拟RPC发送器。
