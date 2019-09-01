@@ -4,13 +4,14 @@ __author__ = 'DozingWolf'
 
 import logging.config
 import logging
+import socket
 from parameterloader import ParaLoder
 
 class RaftMachine(object):
 
     print('Raft-Python Machine')
 
-    def __init__(self):
+    def __init__(self,modelname):
 
         # 1. load parameter file
         # all cluster parameter
@@ -31,21 +32,46 @@ class RaftMachine(object):
 
         for self.__paraNodeNo, self.__paraIteam in enumerate(self.__nodeParaIteam['RaftMachine_List']):
             # print('node no = ', self.__paraNodeNo,'iteam = ',self.__paraIteam)
-            self.__raftIP.append(
-                self.__nodeParaIteam['RaftMachine_List'][self.__paraIteam]['RaftMachine_Node_IP'])
-            self.__raftNode.append(
-                self.__paraNodeNo)
-            self.__raftHostName.append(
-                self.__nodeParaIteam['RaftMachine_List'][self.__paraIteam]['RaftMachine_Node_Name'])
-            self.__raftPort.append(
-                int(self.__nodeParaIteam['RaftMachine_List'][self.__paraIteam]['RaftMachine_Node_Port'])
-            )
+            if self.__paraIteam != 'RaftMachine_Node_Local':
+                self.__raftIP.append(
+                    self.__nodeParaIteam['RaftMachine_List'][self.__paraIteam]['RaftMachine_Node_IP'])
+                self.__raftNode.append(
+                    self.__paraNodeNo)
+                self.__raftHostName.append(
+                    self.__nodeParaIteam['RaftMachine_List'][self.__paraIteam]['RaftMachine_Node_Name'])
+                self.__raftPort.append(
+                    int(self.__nodeParaIteam['RaftMachine_List'][self.__paraIteam]['RaftMachine_Node_Port'])
+                )
+        # assign localhost variable
+        self.__rmLocalhostName = self.__nodeParaIteam['RaftMachine_List'][
+            'RaftMachine_Node_Local']['RaftMachine_Node_Name']
+        self.__rmLocalhost = self.__nodeParaIteam['RaftMachine_List'][
+            'RaftMachine_Node_Local']['RaftMachine_Node_IP']
+        self.__rmLocalhostPort = self.__nodeParaIteam['RaftMachine_List'][
+            'RaftMachine_Node_Local']['RaftMachine_Node_Port']
+
+        
         # 2. initial log handle
         self.__rmLogConfigFile = self.__nodeParaIteam['RaftMachine_Log_Config']
         logging.config.fileConfig(self.__rmLogConfigFile)
-        self.__rmLogHandleName = self.__raftHostName[0] + '_' + self.__raftIP[0]
+        self.__rmLogHandleName = self.__raftHostName[0] + '_' + self.__raftIP[0] + '_' + modelname
         self.__rmLogger = logging.getLogger(self.__rmLogHandleName)
+        
 
+    def regetRaftMachineParameter(self):
+        pass
+    def getNeighborIPList(self):
+        return self.__raftIP
+    def getNeighborHostnameList(self):
+        return self.__raftHostName
+    def getLocalhostIP(self):
+        return self.__rmLocalhost
+    def getLocalhostName(self):
+        return self.__rmLocalhostName
+    def getLocalhostPort(self):
+        return self.__rmLocalhostPort
+    def getRMLogger(self):
+        return self.__rmLogger
     def RaftMachineInitial(self):
         
         # Raft算法初始化
@@ -62,9 +88,9 @@ class RaftMachine(object):
         
         # 获取raft机器运行状态信息
         self.__rmLogger.info('Test by DW')
-        print('=================================')
-        print('========Raft_Machine_Info========')
-        print('=================================')
+        print('=========================================')
+        print('============Raft_Machine_Info============')
+        print('=========================================')
         print('Raft Machine host name :', self.__raftHostName[0])
         print('Raft Machine host ip :',self.__raftIP[0])
         print('Raft Machine host port :',self.__raftPort[0])
@@ -72,7 +98,7 @@ class RaftMachine(object):
         print('Raft Machine cluster domain name :',self.__raftNodeDomain)
         print('now localhost character is :',self.__raftCharacter)
         print('now RM term in localhost is :',self.__raftTerm)
-        print('=================================')
+        print('=========================================')
 
     def endRaftMachine(self):
         
