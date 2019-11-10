@@ -7,6 +7,8 @@ from parameterloader import ParaLoder
 from multiprocessing import Process, Queue
 import time
 import os
+import socket
+import pickle
 
 
 class RaftListener(RaftMachine):
@@ -20,12 +22,38 @@ class RaftListener(RaftMachine):
         self.__mainProcessSID = 0
         self.__subProcessSID = 0
         print(self.__listenAddrList)
+        # 
+        self.__listenLogger.debug('RML is listening in %s:%s' % (self.__listenerIP, self.__listenerPort))
+        self.__serverInfo = (self.__listenerIP,self.__listenerPort)
+        #
+        self.__updSocketServer = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+        # 
+        self.__updSocketServer.bind(self.__serverInfo)
+        
 
     def callLogicalCenter(self,logdata):
         pass
 
-    def forkListenerProcess(self,lport,lip):
-        pass
+    def forkListenerProcess(self):
+        self.__mainProcessSID = os.getpid()
+        self.__listenLogger.info('Listener pid = %s' % self.__mainProcessSID)
+        def dataListerner(queue):
+            self.__subProcessSID = os.getpid()
+            self.__listenLogger.info('sub process pid = %'%self.__subProcessSID)
+            self.__listenProcess = Process(target=dataListerner,args=(self.__rpcQueue,))
+            self.__listenProcess.start()
+            while True:
+                self.__listeningData, self.__listenAddr = self.__updSocketServer.recvfrom(1024)
+                self.__listenLogger.debug(
+                    'row message from %s is %s' % self.__listenAddr, self.__listeningData)
+                queue.put(self.__listeningData)
+        self.__rpcQueue = Queue()
+        while True:
+            self.__getDataFromListenerQueue = self.__rpcQueue.get(True)
+            self.__listenLogger.debug(
+                'Unpickly queue\'s data = %s' %self.__getDataFromListenerQueue)
+            self.__picklyData = pickle.loads(self.__getDataFromListenerQueue)
+            self.__listenLogger.debug('Data = %s'%self.__picklyData)
 
     def getListenerInfo(self):
         print('=========================================')
@@ -40,5 +68,6 @@ class RaftListener(RaftMachine):
         self.__listenLogger.info('ip:%s , port:%s' % (self.__listenerIP , self.__listenerPort))
 
 lsnInstance = RaftListener()
-lsnInstance.getRaftMachineInfo()
+# lsnInstance.getRaftMachineInfo()
 lsnInstance.getListenerInfo()
+lsnInstance.forkListenerProcess()

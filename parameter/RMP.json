@@ -4,7 +4,7 @@
     "RaftMachine_List":{
         "RaftMachine_Node_Local":{
             "RaftMachine_Node_Name":"RM.01",
-            "RaftMachine_Node_IP":"10.62.24.10",
+            "RaftMachine_Node_IP":"127.0.0.1",
             "RaftMachine_Node_Port":7600
         },
         "RaftMachine_Node_002":{
