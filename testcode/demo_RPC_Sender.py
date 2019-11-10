@@ -6,7 +6,7 @@ from multiprocessing import Process, Queue
 import pickle,os,datetime,random,time
 import socket
 
-udpServer = ('127.0.0.1',6231)
+udpServer = ('127.0.0.1',7600)
 
 def udpSocketSender(queue,userver):
     udpSocketLink = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)

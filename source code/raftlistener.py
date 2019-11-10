@@ -26,28 +26,38 @@ class RaftListener(RaftMachine):
         self.__listenLogger.debug('RML is listening in %s:%s' % (self.__listenerIP, self.__listenerPort))
         self.__serverInfo = (self.__listenerIP,self.__listenerPort)
         #
+        self.__listenLogger.debug(
+            'Set socket parameter(socket.AF_INET,socket.SOCK_DGRAM)')
         self.__updSocketServer = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
         # 
+        self.__listenLogger.debug('Bind variable to socket server')
         self.__updSocketServer.bind(self.__serverInfo)
         
 
     def callLogicalCenter(self,logdata):
-        pass
+        def whenGetHeartbeatMessage(self):
+            pass
+        def whenGetVoteingInvitionMessage(self):
+            pass
+
 
     def forkListenerProcess(self):
         self.__mainProcessSID = os.getpid()
         self.__listenLogger.info('Listener pid = %s' % self.__mainProcessSID)
         def dataListerner(queue):
             self.__subProcessSID = os.getpid()
-            self.__listenLogger.info('sub process pid = %'%self.__subProcessSID)
-            self.__listenProcess = Process(target=dataListerner,args=(self.__rpcQueue,))
-            self.__listenProcess.start()
+            self.__listenLogger.info('sub process pid = %s'%self.__subProcessSID)
+            # self.__listenProcess = Process(target=dataListerner,args=(self.__rpcQueue,))
+            # self.__listenProcess.start()
             while True:
                 self.__listeningData, self.__listenAddr = self.__updSocketServer.recvfrom(1024)
                 self.__listenLogger.debug(
                     'row message from %s is %s' % self.__listenAddr, self.__listeningData)
                 queue.put(self.__listeningData)
         self.__rpcQueue = Queue()
+        self.__listenProcess = Process(
+            target=dataListerner, args=(self.__rpcQueue,))
+        self.__listenProcess.start()
         while True:
             self.__getDataFromListenerQueue = self.__rpcQueue.get(True)
             self.__listenLogger.debug(
