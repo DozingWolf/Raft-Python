@@ -19,6 +19,7 @@ class RaftListener(RaftMachine):
         self.__listenerHostName = super().getLocalhostName()
         self.__listenerIP = super().getLocalhostIP()
         self.__listenLogger = super().getRMLogger()
+        self.__rmDomain = super().getRMDomain()
         self.__mainProcessSID = 0
         self.__subProcessSID = 0
         print(self.__listenAddrList)
@@ -35,11 +36,19 @@ class RaftListener(RaftMachine):
         
 
     def callLogicalCenter(self,logdata):
+
         def whenGetHeartbeatMessage(self):
             pass
+
         def whenGetVoteingInvitionMessage(self):
             pass
 
+        def getRaftCharacter(self):
+            # ask logical center
+            self.__newRaftCharacter = ''
+            return self.__newRaftCharacter
+        def updateLocalRaftCharacter(self):
+            self.__raftCharacter = self.getRaftCharacter()
 
     def forkListenerProcess(self):
         self.__mainProcessSID = os.getpid()
