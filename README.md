@@ -97,4 +97,9 @@
         1. AFK很久，重新开始编码。
         2. 编写了监听模块，已经可以建立监听。
         3. 下一步要编写一个发送者进行测试。或者考虑使用testcode中的发送者进行测试。
-        4. 发现在监听模块、控制模块和发送模块之间的数据同步有点问题，现在可以用bsddb做共享数据的存储，但是模块间互相调用有点问题。看到有一些解决方案是使用进程间queue来实现，可以尝试以下。或者使用pipe管道来实现。尝试写一个demo来试试看。
+        4. 发现在监听模块、控制模块和发送模块之间的数据同步有点问题，现在可以用bsddb做共享数据的存储，但是模块间互相调用有点问题。看到有一些解决方案是使用进程间queue来实现，可以尝试以下。或者使用pipe管道来实现。尝试写一个demo来试试看。(http://www.py3study.com/Article/details/id/245.html)
+        5. 新的想法，监听类与发送类可以写在不同py包内，通过调度py包来统一分配，这样就可以解决pipe必须在一个文件内的情况。或者调用同一个py包模块是否可行？有待尝试。
+    20191114
+        1. 编写sender模块。
+        2. 发现sender和listener模块中，getRaftCharacter和updateLocalRaftCharacter两个方法好像可以抽象到raft machine基类中去。需要再仔细思考以下。
+        3. 引发出的问题，raftmachine的character如何获取？基类提供方法和变量，再logicalcenter中实现character的变换好像是最合适的一种方案。
