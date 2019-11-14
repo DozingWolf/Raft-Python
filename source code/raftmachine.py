@@ -60,6 +60,8 @@ class RaftMachine(object):
 
     def regetRaftMachineParameter(self):
         pass
+    def getRMDomain(self):
+        return self.__raftNodeDomain
     def getNeighborIPList(self):
         return self.__raftIP
     def getNeighborHostnameList(self):
