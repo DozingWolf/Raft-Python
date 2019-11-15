@@ -22,6 +22,7 @@ class RaftMachine(object):
         self.__raftHostName = []
         self.__raftPort = []
         # dynamic parameter
+        self.__raftCharacter = 'Follower'
         self.__raftHeartBeat = 500  # unit is ms
         self.__raftTerm = 0
         self.__raftCharacter = 'Leader'
