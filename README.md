@@ -103,3 +103,20 @@
         1. 编写sender模块。
         2. 发现sender和listener模块中，getRaftCharacter和updateLocalRaftCharacter两个方法好像可以抽象到raft machine基类中去。需要再仔细思考以下。
         3. 引发出的问题，raftmachine的character如何获取？基类提供方法和变量，再logicalcenter中实现character的变换好像是最合适的一种方案。
+    20191115
+        1. 编写sender模块。
+        2. sender模块的发送需要仔细考虑，系统执行中，同时存在向某一个服务器发送的单播消息，也存在向所有服务器发送的广播消息。
+        3. 此时按照demo中的写法执行效率不是最佳的，会造成有较多进程进行发送，不是很好。再次情况下，考虑将发送的心跳数据和目标地址信息拼成list或dict，再压入queue。udpSocketSender收到queue的消息后，for ip in enumerate(ip_list)解析发送地址，socket.sendto(message,ip)。
+        4. 基于以上，sender.py第50行开始需要重写。
+        5. 伪代码：
+            生产者侧（数据准备器）
+            queue_message = [message,ip_list]
+            queue.put(queue_message)
+            消费者侧（发送器）
+            while true:
+                getdata = queue.get(true)
+                message = getdata[0]
+                ip_list = getdate[1]
+                for ip in enumerate(ip_list):
+                    socket.sendto(message,ip)
+                sleep(hb_interval)
