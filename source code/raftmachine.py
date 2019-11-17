@@ -25,7 +25,7 @@ class RaftMachine(object):
         self.__raftCharacter = 'Follower'
         self.__raftHeartBeat = 500  # unit is ms
         self.__raftTerm = 0
-        self.__raftCharacter = 'Leader'
+        self.__raftCharacter = 'Follower'
         # load parameters
         self.__nodeParaIteam , self.__nodeQty = ParaLoder('../parameter/RMP.json').loadParameter()
         # assignment parameters
@@ -63,6 +63,8 @@ class RaftMachine(object):
         pass
     def getRMDomain(self):
         return self.__raftNodeDomain
+    def getLocslCharacter(self):
+        return self.__raftCharacter
     def getNeighborIPList(self):
         return self.__raftIP
     def getNeighborHostnameList(self):
