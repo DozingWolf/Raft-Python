@@ -61,7 +61,7 @@ class RaftListener(RaftMachine):
             while True:
                 self.__listeningData, self.__listenAddr = self.__updSocketServer.recvfrom(1024)
                 self.__listenLogger.debug(
-                    'row message from %s is %s' % self.__listenAddr, self.__listeningData)
+                    'row message from %s is %s' % (self.__listenAddr, self.__listeningData))
                 queue.put(self.__listeningData)
         self.__rpcQueue = Queue()
         self.__listenProcess = Process(
