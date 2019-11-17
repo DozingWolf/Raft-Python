@@ -25,7 +25,6 @@ class RaftMachine(object):
         self.__raftCharacter = 'Follower'
         self.__raftHeartBeat = 500  # unit is ms
         self.__raftTerm = 0
-        self.__raftCharacter = 'Follower'
         # load parameters
         self.__nodeParaIteam , self.__nodeQty = ParaLoder('../parameter/RMP.json').loadParameter()
         # assignment parameters
