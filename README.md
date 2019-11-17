@@ -120,3 +120,10 @@
                 for ip in enumerate(ip_list):
                     socket.sendto(message,ip)
                 sleep(hb_interval)
+    20191117
+        1. sender模块中需要考虑发送者进程的关闭事务。
+        2. 关闭时需要考虑该进程是否存在，否则会被弹出错误。
+        3. sender模块会对外发送的数据不同，把压入队列的动作抽出来作为一个新的function设计。
+        4. 抽取function到外部，重新写了sender模块。
+        5. 实现发送者应对单独或多个发送目标的情况下，可以自动处理两种情况。
+        6. 测试sender和listener完成，消息发送和接收成功。
